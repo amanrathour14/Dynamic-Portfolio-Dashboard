@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+html, body, #__next {
+  height: 100%;
+}
+
+/* Typography tweaks */
+h1, h2, h3, h4, h5, h6 { 
+  @apply text-gray-800 dark:text-gray-100;
+}
+
+/* Container default spacing */
+.container {
+  @apply px-4 sm:px-6 lg:px-8;
+}

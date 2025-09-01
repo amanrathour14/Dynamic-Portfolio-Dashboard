@@ -85,5 +85,4 @@ For frontend scripts, run them inside `frontend/` as shown above.
 - If you use Redis caching, ensure `REDIS_URL` is reachable and Redis server is running.
 - Windows path note: `outputFileTracingRoot` in Next config is set to your repo root (`D:/Workspace/Dynamic Portfolio Dashboard`).
 
-## License
-ISC
+

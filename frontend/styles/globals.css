@@ -12,6 +12,14 @@ h1, h2, h3, h4, h5, h6 {
   @apply text-gray-800 dark:text-gray-100;
 }
 
+/* Force-black utility for subheadings to ensure visibility on dark backgrounds */
+.force-black {
+  @apply text-black dark:text-black;
+}
+/* Ensure highest precedence over competing utilities */
+.force-black { color: rgb(0 0 0) !important; }
+.dark .force-black { color: rgb(0 0 0) !important; }
+
 /* Container default spacing */
 .container {
   @apply px-4 sm:px-6 lg:px-8;

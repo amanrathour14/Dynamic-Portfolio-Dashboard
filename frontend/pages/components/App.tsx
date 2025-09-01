@@ -1,8 +1,10 @@
 // The top-level component that renders the dashboard.
 
 import React, { useEffect, useMemo, useState } from 'react';
+import dynamic from 'next/dynamic';
 import PortfolioTable from './PortfolioTable';
-import ChartSection from './ChartSection';
+// Recharts is not SSR-friendly; load ChartSection only on client
+const ChartSection = dynamic(() => import('./ChartSection'), { ssr: false });
 import KPIs from './KPIs';
 import usePortfolioPolling from '../../hooks/usePortfolioPolling';
 import LoadingSkeleton from './LoadingSkeleton';
@@ -13,6 +15,7 @@ import Footer from './Footer';
 const App = () => {
   const { portfolio, loading, error, refresh } = usePortfolioPolling();
   const [isDark, setIsDark] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   // Initialize theme from localStorage or system preference
   useEffect(() => {
@@ -24,6 +27,8 @@ const App = () => {
       setIsDark(dark);
       document.documentElement.classList.toggle('dark', dark);
     } catch {}
+    // Mark mounted after theme sync, ensuring SSR and first client paint match
+    setMounted(true);
   }, []);
 
   const toggleTheme = () => {
@@ -46,7 +51,8 @@ const App = () => {
     }), { totalInvestment: 0, totalPresentValue: 0, totalGainLoss: 0 });
   }, [portfolio]);
 
-  if (loading && !portfolio) {
+  // On SSR we render LoadingSkeleton; ensure first client render matches until mounted
+  if (!mounted || (loading && !portfolio)) {
     return <LoadingSkeleton />;
   }
 
@@ -69,7 +75,18 @@ const App = () => {
       <Header onRefresh={refresh} loading={!!loading} isDark={isDark} onToggleTheme={toggleTheme} />
       <main className="p-8">
         <div className="container mx-auto">
-          <KPIs totals={totals} />
+          <KPIs
+            totals={totals}
+            loading={!!loading}
+            onRefresh={refresh}
+            onAction={() => {
+              // Open the backend data source and refresh values
+              if (typeof window !== 'undefined') {
+                try { window.open('/api/portfolio', '_blank'); } catch {}
+              }
+              refresh();
+            }}
+          />
           <ChartSection portfolio={portfolio} />
           <PortfolioTable portfolio={portfolio} />
         </div>

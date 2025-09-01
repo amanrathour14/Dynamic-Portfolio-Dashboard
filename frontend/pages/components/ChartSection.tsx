@@ -47,7 +47,7 @@ const ChartSection = ({ portfolio }) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
       <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 flex flex-col items-center">
-        <h2 className="text-2xl font-semibold mb-4 text-center text-gray-800">Portfolio Allocation by Sector</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-center text-gray-800 force-black">Portfolio Allocation by Sector</h2>
         <div className="w-full h-80">
           <ResponsiveContainer>
             <PieChart>
@@ -63,7 +63,7 @@ const ChartSection = ({ portfolio }) => {
         </div>
       </div>
       <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 flex flex-col items-center">
-        <h2 className="text-2xl font-semibold mb-4 text-center text-gray-800">Sector Performance (Gain/Loss)</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-center text-gray-800 force-black">Sector Performance (Gain/Loss)</h2>
         <div className="w-full h-80">
           <ResponsiveContainer>
             <BarChart data={barData} margin={{ top: 10, right: 20, left: 0, bottom: 40 }}>

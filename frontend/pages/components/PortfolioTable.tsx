@@ -76,14 +76,14 @@ const PortfolioTable = ({ portfolio }) => {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-      <h2 className="text-2xl font-semibold mb-4 text-gray-800">Detailed Holdings</h2>
+      <h2 className="text-2xl font-semibold mb-4 text-gray-800 force-black">Detailed Holdings</h2>
       <div className="overflow-x-auto rounded-md">
         <div className="max-h-[480px] overflow-y-auto rounded-md border border-gray-200">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50 sticky top-0 z-10 shadow">
               <tr>
                 {columns.map((col, idx) => (
-                  <th key={idx} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th key={idx} className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider force-black">
                     {String(col.header)}
                   </th>
                 ))}
